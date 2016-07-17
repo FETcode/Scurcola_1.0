@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">Scurcola</string>
+    <string name="play"><b>PLAY</b></string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="finish">Finish</string>
+    <string name="remove">Remove</string>
+    <string name="add">Add</string>
+    <string name="welcome">Welcome to the new Android game for Lupus in Tabula</string>
+    <string name="gameOver">GAME OVER</string>
+    <string name="villagersWin">Il villaggio di %s è salvo!</string>
+    <string name="wolvesWin">Lo hai sentito anche te?!</string>
+
+
+    <!-- Numbers-->
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+
+
+    <!-- Village -->
+    <string name="village">In che paese vi trovate?</string>
+    <string name="villageText">Scurcola</string>
+
+
+    <!-- Characters -->
+    <string name="demoniac">Demoniac</string>
+    <string name="masons">Masons</string>
+    <string name="guard">Guard</string>
+    <string name="medium">Medium</string>
+    <string name="villager">Villager</string>
+    <string name="werehamster">Werehamster</string>
+    <string name="clairvoyant">Clairvoyant</string>
+    <string name="wolf">Wolf</string>
+
+
+    <!-- PlayerSelection -->
+    <string name="howManyPlayers">How many of you are playing?</string>
+    <string name="whoMaster">Who\'s the Master?</string>
+    <string name="whoPlays">Who\'s playing?</string>
+    <string name="master">Leonardo</string>
+    <string name="whoIsPlaying">Who\'s playing?</string>
+
+
+    <!-- CharacterSelection -->
+    <string name="whatCharacter">What characters you want to play with?</string>
+
+
+    <!-- RandomAssignment -->
+    <string name="card">Card</string>
+    <string name="name">Name</string>
+
+
+    <!-- Greetings -->
+    <string-array name="greetings" formatted="false">
+        <item>Ed eccoci finalmente qua, ci troviamo a %s, un paese favoloso! Gli uccellini cinguettano, i pesci nuotano veloci nel lago, le pecore belano felici nei pascoli e.. dei forestieri arrivano nel villaggio, sono molti, sono strani: tra alcuni di loro si nascondono dei lupi mannari!</item>
+        <item>Benvenuti a tutti! Vi trovate a %s, una delle meraviglie di questo mondo. Prima di accompagnarvi alle vostre stanze vi volevamo avvisare che negli ultimi giorni sono stati registrati degli ululati, vi consigliamo vivamente di non allontanarvi troppo di notte! Bene ora seguitemi pure, vi accompagno alle vostre stanze.</item>
+        <item>Ci troviamo a %s, il paese per eccellenza quando si parla di avvistamenti di lupi mannari.. ahah scherzo, tranquilli! Basta sbarrare porte e finestre la notte..</item>
+        <item>Salve a tutti, vi trovate a %s, uno dei paesi più belli del luogo! Godetevi il paesaggio e i dintorni di giorno.. di notte restate in casa però.</item>
+    </string-array>
+
+
+    <!-- Characters calls -->
+    <string name="masonsCall">I massoni aprono gli occhi e si riconoscono.</string>
+    <string-array name="wolvesCall">
+        <item>I lupi ululano insieme e ritrovano il branco..</item>
+        <item>I lupi escono dalle loro tane e decidono insieme la loro preda..</item>
+    </string-array>
+    <string name="clairvoyantCall">Il veggente apre gli occhi e indica colui di chi vuole sondare la mente.</string>
+    <string name="guardCall">La guardia decide chi valorosamente difendere durante la notte.</string>
+    <string name="mediumCall">Il medium apre gli occhi e parla con il fantasma della persona linciata quella giornata.</string>
+
+
+    <!-- Night Strings -->
+    <string name="night" formatted="false">E\' notte a %s, tutti chiudono gli occhi.</string>
+
+
+    <!-- Day Strings -->
+    <string-array name="goodMorning" formated="false">
+        <item>Good Morning folks!</item>
+        <item>Sun\'s out, guns out.</item>
+        <item>Careless vampires burn, and you wake up!</item>
+        <item>Can\'t find the moon. Oh it\'s probably morning then..</item>
+        <item>Darkness flees from %s, wake up!</item>
+        <item>Sunlight manifests, it\'s morning %s!</item>
+        <item>Stars went to bed, and %s wakes up!</item>
+        <item>Be beep. Be beep. %s wake up!</item>
+    </string-array>
+
+    <string name="savaged">Questa notte i lupi hanno sbranato %s !</string>
+    <string name="savagedMaster">Questa notte i lupi hanno sbranato il nostro caro Master!</string>
+    <string name="talk">Tutti gli abitanti si radunano per discutere dell\'accaduto.</string>
+    <string name="speeches">Ora gli indiziati terranno un\'arringa ciascuno per discolparsi.</string>
+
+    <!-- RecyclerViews' questions -->
+    <string name="clairvoyantQuestion">Chi vuoi sondare?</string>
+    <string name="guardQuestion">Chi vuoi proteggere?</string>
+    <string name="wolvesQuestion">Chi volete sbranare?</string>
+    <string name="voteQuestion">Chi sospettate?</string>
+    <string name="lynchQuestion">Chi volete linciare?</string>
+</resources>
+
