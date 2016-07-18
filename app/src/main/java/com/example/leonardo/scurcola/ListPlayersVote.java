@@ -9,9 +9,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListPlayersVote extends AppCompatActivity {
+
+    static final String PLAYERS = "PLAYERS";
 
     RecyclerView myList;
     private ArrayList<Player> players; // Players
@@ -27,9 +34,11 @@ public class ListPlayersVote extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         players = intent.getParcelableArrayListExtra("PLAYERS");
-        System.out.println("[2] The players are " + players.size() + ".");
 
+        initializeRecyclerView();
+    }
 
+    public void initializeRecyclerView(){
         myList = (RecyclerView) findViewById(R.id.playersVote);
         myList.setLayoutManager(new LinearLayoutManager(this));
         CoursesAdapter adapter = new CoursesAdapter(players);
@@ -97,12 +106,32 @@ public class ListPlayersVote extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        String playersJSON = prefs.getString(PLAYERS, null);
+        Type type = new TypeToken<List<Player>>(){}.getType();
+        Gson gson = new Gson();
 
+        if(playersJSON != null) {
+            players = gson.fromJson(playersJSON, type);
+        }
+
+        initializeRecyclerView();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+
+        String playersJSON = gson.toJson(players);
+        editor.putString(PLAYERS, playersJSON);
+
+        editor.putInt("VOTES", votes);
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.apply();
     }
 }

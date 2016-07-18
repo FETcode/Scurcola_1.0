@@ -56,8 +56,9 @@ public class PlayerSelection extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        prefs.getString(VILLAGE, "");
-        prefs.getInt(PROGRESS, 0);
+        village = prefs.getString(VILLAGE, "");
+        int progress = prefs.getInt(PROGRESS, 0);
+        seekBar.setProgress(progress);
         }
 
     public void toNameSelection(View v){
@@ -84,7 +85,7 @@ public class PlayerSelection extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
 
         editor.putString(VILLAGE, village);
-        editor.putInt(PROGRESS, seekBarProgress);
+        editor.putInt(PROGRESS, seekBarProgress - 9);
         editor.putString("lastActivity", getClass().getName());
         editor.apply();
     }

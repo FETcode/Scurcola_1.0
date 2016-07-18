@@ -29,6 +29,7 @@ public class Game extends AppCompatActivity {
     static final String PLAYERS_CAN_VOTE = "PLAYERS_CAN_VOTE";
     static final String PLAYERS_NO_WOLVES = "PLAYERS_NO_WOLVES";
     static final String HIGHEST = "HIGHEST";
+    static final String MESSAGES = "MESSAGES";
 
     static final String LAST_LYNCHED = "LAST_LYNCHED";
     static final String PLAYER_CHOSE = "PLAYER_CHOSE";
@@ -57,10 +58,9 @@ public class Game extends AppCompatActivity {
 
     private String village;
     private String activity;
-    String saved;
 
     ArrayAdapter<String> adapter;
-    ArrayList<String> messages;
+    List<String> messages;
     Button next;
     ListView screen; // Where all the messages will be shown
 
@@ -122,6 +122,7 @@ public class Game extends AppCompatActivity {
         String playersCanVoteJSON = prefs.getString(PLAYERS_CAN_VOTE, null);
         String playersNoWolvesJSON = prefs.getString(PLAYERS_NO_WOLVES, null);
         String highestJSON = prefs.getString(HIGHEST, null);
+        String messagesJSON = prefs.getString(MESSAGES, null);
 
         String lastLynchedJSON = prefs.getString(LAST_LYNCHED, null);
         String playerChoseJSON = prefs.getString(PLAYER_CHOSE, null);
@@ -132,6 +133,7 @@ public class Game extends AppCompatActivity {
 
         Type type = new TypeToken <List<Player>>(){}.getType();
         Type type1 = new TypeToken <Player>(){}.getType();
+        Type listString = new TypeToken <List<String>>(){}.getType();
 
         if(playersJSON != null) {
             players = gson.fromJson(playersJSON, type);
@@ -143,6 +145,10 @@ public class Game extends AppCompatActivity {
             playersNoWolves = gson.fromJson(playersNoWolvesJSON, type);
         }if(highestJSON != null) {
             highest = gson.fromJson(highestJSON, type);
+        }if(messagesJSON != null) {
+            messages = gson.fromJson(messagesJSON, listString);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
+            screen.setAdapter(adapter);
         }
             // Players
         if(lastLynchedJSON != null) {
@@ -766,12 +772,14 @@ public class Game extends AppCompatActivity {
         String playersCanVoteJSON = gson.toJson(playersCanVote);
         String playersNoWolvesJSON = gson.toJson(playersNoWolves);
         String highestJSON = gson.toJson(highest);
+        String messagesJSON = gson.toJson(messages);
 
         editor.putString(PLAYERS, playersJSON);
         editor.putString(RECENTLY_KILLED, recentlyKilledJSON);
         editor.putString(PLAYERS_CAN_VOTE, playersCanVoteJSON);
         editor.putString(PLAYERS_NO_WOLVES, playersNoWolvesJSON);
         editor.putString(HIGHEST, highestJSON);
+        editor.putString(MESSAGES, messagesJSON);
 
         // Players
         editor.putString(LAST_LYNCHED, gson.toJson(lastLynched));
