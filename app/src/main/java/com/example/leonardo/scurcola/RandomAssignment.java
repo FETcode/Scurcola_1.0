@@ -64,31 +64,40 @@ public class RandomAssignment extends AppCompatActivity {
 
         // JSON
         Gson gson = new Gson();
-        Type listPlayer = new TypeToken<List<Player>>(){}.getType();
-        Type listString = new TypeToken<List<String>>(){}.getType();
-        Type listCard = new TypeToken<List<Card>>(){}.getType();
+        Type listPlayer = new TypeToken<List<Player>>() {
+        }.getType();
+        Type listString = new TypeToken<List<String>>() {
+        }.getType();
+        Type listCard = new TypeToken<List<Card>>() {
+        }.getType();
 
         String playersJSON = prefs.getString(PLAYERS, null);
         String namesJSON = prefs.getString(NAMES, null);
         String cardsJSON = prefs.getString(CARDS, null);
-        if(playersJSON != null) {
+        if (playersJSON != null) {
             players = gson.fromJson(playersJSON, listPlayer);
-        }if(namesJSON != null) {
+        }
+        if (namesJSON != null) {
             names = gson.fromJson(namesJSON, listString);
-        }if(cardsJSON != null) {
+        }
+        if (cardsJSON != null) {
             cards = gson.fromJson(cardsJSON, listCard);
-        }if(playersJSON == null) {
+        }
+        if (playersJSON == null) {
             Toast.makeText(RandomAssignment.this, "Run", Toast.LENGTH_SHORT).show();
             fillPlayers();
             randomize();
             assign();
         }
-        // Display the last texts seen
-        card.setText(players.get(count).getCardName());
-        name.setText(players.get(count).getName());
-        count++;
-        if (count == players.size()) {
-            pick.setText(R.string.finish);
+        if (playersJSON != null) {
+            System.out.println("Count value NOW is: " + count + " **************************");
+            // Display the last texts seen
+            card.setText(players.get(count - 1).getCardName());
+            name.setText(players.get(count - 1).getName());
+            if (count == players.size()) {
+                pick.setText(R.string.finish);
+            }
+            System.out.println("Count FINAL value is: " + count + " **************************");
         }
     }
 
@@ -122,7 +131,7 @@ public class RandomAssignment extends AppCompatActivity {
         }
         if (count == players.size()) {
             pick.setText(R.string.finish);
-        } else if (count == players.size()) {
+        }if (pick.getText().equals("Finish")) {
             Intent intent = new Intent(this, Game.class);
             intent.putParcelableArrayListExtra("PLAYERS", (ArrayList<? extends Parcelable>) players);
             intent.putExtra("VILLAGE", village);
@@ -156,5 +165,6 @@ public class RandomAssignment extends AppCompatActivity {
         editor.putString(NAMES, namesJSON);
         editor.putString(CARDS, cardsJSON);
         editor.apply();
+        System.out.println("Count value BEFORE was: " + count + " **************************");
     }
 }

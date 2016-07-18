@@ -711,6 +711,7 @@ public class Game extends AppCompatActivity {
         playersCanVote = new ArrayList<>();
         playersNoWolves = new ArrayList<>();
         highest = new ArrayList<>();
+        players = new ArrayList<>();
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             village = bundle.getString(VILLAGE);
