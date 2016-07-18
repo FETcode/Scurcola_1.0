@@ -131,7 +131,7 @@ public class RandomAssignment extends AppCompatActivity {
         }
         if (count == players.size()) {
             pick.setText(R.string.finish);
-        }if (pick.getText().equals("Finish")) {
+        }if (pick.getText().equals(getString(R.string.finish))) {
             Intent intent = new Intent(this, Game.class);
             intent.putParcelableArrayListExtra("PLAYERS", (ArrayList<? extends Parcelable>) players);
             intent.putExtra("VILLAGE", village);

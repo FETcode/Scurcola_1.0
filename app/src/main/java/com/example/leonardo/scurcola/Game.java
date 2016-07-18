@@ -57,7 +57,6 @@ public class Game extends AppCompatActivity {
     ArrayList<Player> highest;
 
     private String village;
-    private String activity;
 
     ArrayAdapter<String> adapter;
     ArrayList<String> messages;
@@ -94,10 +93,6 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        // Restore preferences
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        activity = settings.getString(ACTIVITY, "Game");
-
         // Probably initialize members with default values for a new instance
         initializeVariables();
         // Initialize Characters
@@ -106,11 +101,7 @@ public class Game extends AppCompatActivity {
         initializeLists();
         // Greetings to the user
         greetings();
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         Gson gson = new Gson();
         // Restore value of members from saved state
@@ -131,7 +122,7 @@ public class Game extends AppCompatActivity {
         String guardJSON = prefs.getString(GUARD, null);
         String mediumJSON = prefs.getString(MEDIUM, null);
 
-        Type type = new TypeToken <List<Player>>(){}.getType();
+        Type type = new TypeToken<List<Player>>(){}.getType();
         Type type1 = new TypeToken <Player>(){}.getType();
         Type arrayListString = new TypeToken <ArrayList<String>>(){}.getType();
 
@@ -150,7 +141,7 @@ public class Game extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
             screen.setAdapter(adapter);
         }
-            // Players
+        // Players
         if(lastLynchedJSON != null) {
             lastLynched = gson.fromJson(lastLynchedJSON, type1);
         }if(playerChoseJSON != null) {
@@ -165,15 +156,15 @@ public class Game extends AppCompatActivity {
             medium = gson.fromJson(mediumJSON, type1);
         }
 
-            // Counters
-            nightCounter = prefs.getInt(NIGHT_COUNTER, 0);
-            dayCounter = prefs.getInt(DAY_COUNTER, 0);
-            nightInsideCounter = prefs.getInt(NIGHT_INSIDE_COUNTER, 0);
-            dayInsideCounter = prefs.getInt(DAY_INSIDE_COUNTER, 0);
-            wolvesLeft = prefs.getInt(WOLVES_LEFT, 0);
-            villagersLeft = prefs.getInt(VILLAGERS_LEFT, 0);
-            night = prefs.getBoolean(NIGHT, true);
-        }
+        // Counters
+        nightCounter = prefs.getInt(NIGHT_COUNTER, 0);
+        dayCounter = prefs.getInt(DAY_COUNTER, 0);
+        nightInsideCounter = prefs.getInt(NIGHT_INSIDE_COUNTER, 0);
+        dayInsideCounter = prefs.getInt(DAY_INSIDE_COUNTER, 0);
+        wolvesLeft = prefs.getInt(WOLVES_LEFT, 0);
+        villagersLeft = prefs.getInt(VILLAGERS_LEFT, 0);
+        night = prefs.getBoolean(NIGHT, true);
+    }
 
     /* ---------- MAIN GAME ---------- */
     public void game(View v) {
