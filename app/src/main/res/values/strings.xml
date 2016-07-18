@@ -92,8 +92,7 @@
         <item>Sunlight manifests, it\'s morning %s!</item>
         <item>Stars went to bed, and %s wakes up!</item>
         <item>Be beep. Be beep. %s wake up!</item>
-    </string-array>
--->
+    </string-array> -->
     <string-array name="goodMorning" formated="false">
         <item>Buon giorno a tutti!</item>
         <item>Il sole è fuori, voi pure.</item>
