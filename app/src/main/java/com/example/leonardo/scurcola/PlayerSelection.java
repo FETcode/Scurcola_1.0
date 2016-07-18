@@ -86,6 +86,6 @@ public class PlayerSelection extends AppCompatActivity {
         editor.putString(VILLAGE, village);
         editor.putInt(PROGRESS, seekBarProgress);
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.apply();
     }
 }

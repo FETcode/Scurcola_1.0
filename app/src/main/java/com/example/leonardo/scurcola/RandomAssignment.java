@@ -8,7 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,12 +24,15 @@ public class RandomAssignment extends AppCompatActivity {
     static final String VILLAGE = "VILLAGE";
     static final String CHARACTERS = "CHARACTERS";
     static final String PLAYERS_NAMES = "PLAYERS_NAMES";
-    static final String I = "I";
+    static final String COUNT = "COUNT";
+    static final String PLAYERS = "PLAYERS";
+    static final String NAMES = "NAMES";
+    static final String CARDS = "CARDS";
 
     private List<Card> cards; // Players' cards
     private List<String> names; // Players' names
     private List<Player> players; // Players
-    int i;
+    int count;
     private String village;
 
     TextView card;
@@ -48,9 +56,40 @@ public class RandomAssignment extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-            SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-            prefs.getString(VILLAGE, "");
-            prefs.getInt(I, 0);
+
+        // Shared Preferences
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        village = prefs.getString(VILLAGE, "Scurcola");
+        count = prefs.getInt(COUNT, 0);
+
+        // JSON
+        Gson gson = new Gson();
+        Type listPlayer = new TypeToken<List<Player>>(){}.getType();
+        Type listString = new TypeToken<List<String>>(){}.getType();
+        Type listCard = new TypeToken<List<Card>>(){}.getType();
+
+        String playersJSON = prefs.getString(PLAYERS, null);
+        String namesJSON = prefs.getString(NAMES, null);
+        String cardsJSON = prefs.getString(CARDS, null);
+        if(playersJSON != null) {
+            players = gson.fromJson(playersJSON, listPlayer);
+        }if(namesJSON != null) {
+            names = gson.fromJson(namesJSON, listString);
+        }if(cardsJSON != null) {
+            cards = gson.fromJson(cardsJSON, listCard);
+        }if(playersJSON == null) {
+            Toast.makeText(RandomAssignment.this, "Run", Toast.LENGTH_SHORT).show();
+            fillPlayers();
+            randomize();
+            assign();
+        }
+        // Display the last texts seen
+        card.setText(players.get(count).getCardName());
+        name.setText(players.get(count).getName());
+        count++;
+        if (count == players.size()) {
+            pick.setText(R.string.finish);
+        }
     }
 
     public void fillPlayers(){
@@ -67,25 +106,23 @@ public class RandomAssignment extends AppCompatActivity {
     }
 
     public void assign(){
-        for(int i = 0; i < players.size(); i++){
-            players.get(i).setCard(cards.get(i));
-            players.get(i).setName(names.get(i));
-            players.get(i).setId(i);
+        for(int f = 0; f < players.size(); f++){
+            players.get(f).setCard(cards.get(f));
+            players.get(f).setName(names.get(f));
+            players.get(f).setId(f);
         }
     }
 
     public void pick(View v) {
 
-        if (i < players.size()) {
-            if (i < players.size()) {
-                card.setText(players.get(i).getCardName());
-                name.setText(players.get(i).getName());
-                i++;
-            }
-            if (i == players.size()) {
-                pick.setText(R.string.finish);
-            }
-        }else if(i == players.size()){
+        if (count < players.size()) {
+            card.setText(players.get(count).getCardName());
+            name.setText(players.get(count).getName());
+            count++;
+        }
+        if (count == players.size()) {
+            pick.setText(R.string.finish);
+        } else if (count == players.size()) {
             Intent intent = new Intent(this, Game.class);
             intent.putParcelableArrayListExtra("PLAYERS", (ArrayList<? extends Parcelable>) players);
             intent.putExtra("VILLAGE", village);
@@ -100,17 +137,24 @@ public class RandomAssignment extends AppCompatActivity {
         card = (TextView) findViewById(R.id.card);
         name = (TextView) findViewById(R.id.name);
         pick = (Button) findViewById(R.id.pick);
-        i = 0;
+        count = 0;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Gson gson = new Gson();
+        String playersJSON = gson.toJson(players);
+        String namesJSON = gson.toJson(names);
+        String cardsJSON = gson.toJson(cards);
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(I, i);
+        editor.putInt(COUNT, count);
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.putString(PLAYERS, playersJSON);
+        editor.putString(NAMES, namesJSON);
+        editor.putString(CARDS, cardsJSON);
+        editor.apply();
     }
 }

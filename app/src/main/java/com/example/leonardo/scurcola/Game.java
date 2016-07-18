@@ -112,40 +112,52 @@ public class Game extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-
+        Gson gson = new Gson();
         // Restore value of members from saved state
         village = prefs.getString(VILLAGE, "");
 
         // Lists
-        String playersJSON = getPreferences(MODE_PRIVATE).getString(PLAYERS, null);
-        String recentlyKilledJSON = getPreferences(MODE_PRIVATE).getString(RECENTLY_KILLED, null);
-        String playersCanVoteJSON = getPreferences(MODE_PRIVATE).getString(PLAYERS_CAN_VOTE, null);
-        String playersNoWolvesJSON = getPreferences(MODE_PRIVATE).getString(PLAYERS_NO_WOLVES, null);
-        String highestJSON = getPreferences(MODE_PRIVATE).getString(HIGHEST, null);
+        String playersJSON = prefs.getString(PLAYERS, null);
+        String recentlyKilledJSON = prefs.getString(RECENTLY_KILLED, null);
+        String playersCanVoteJSON = prefs.getString(PLAYERS_CAN_VOTE, null);
+        String playersNoWolvesJSON = prefs.getString(PLAYERS_NO_WOLVES, null);
+        String highestJSON = prefs.getString(HIGHEST, null);
 
-        String lastLynchedJSON = getPreferences(MODE_PRIVATE).getString(LAST_LYNCHED, null);
-        String playerChoseJSON = getPreferences(MODE_PRIVATE).getString(PLAYER_CHOSE, null);
-        String playerProbedJSON = getPreferences(MODE_PRIVATE).getString(PLAYER_PROBED, null);
-        String clairvoyantJSON = getPreferences(MODE_PRIVATE).getString(CLAIRVOYANT, null);
-        String guardJSON = getPreferences(MODE_PRIVATE).getString(GUARD, null);
-        String mediumJSON = getPreferences(MODE_PRIVATE).getString(MEDIUM, null);
+        String lastLynchedJSON = prefs.getString(LAST_LYNCHED, null);
+        String playerChoseJSON = prefs.getString(PLAYER_CHOSE, null);
+        String playerProbedJSON = prefs.getString(PLAYER_PROBED, null);
+        String clairvoyantJSON = prefs.getString(CLAIRVOYANT, null);
+        String guardJSON = prefs.getString(GUARD, null);
+        String mediumJSON = prefs.getString(MEDIUM, null);
 
-            Type type = new TypeToken <List<Player>>(){}.getType();
-            Type type1 = new TypeToken <Player>(){}.getType();
+        Type type = new TypeToken <List<Player>>(){}.getType();
+        Type type1 = new TypeToken <Player>(){}.getType();
 
-            players = new Gson().fromJson(playersJSON, type);
-            recentlyKilled = new Gson().fromJson(recentlyKilledJSON, type);
-            playersCanVote = new Gson().fromJson(playersCanVoteJSON, type);
-            playersNoWolves = new Gson().fromJson(playersNoWolvesJSON, type);
-            highest = new Gson().fromJson(highestJSON, type);
-
+        if(playersJSON != null) {
+            players = gson.fromJson(playersJSON, type);
+        }if(recentlyKilledJSON != null) {
+            recentlyKilled = gson.fromJson(recentlyKilledJSON, type);
+        }if(playersCanVoteJSON != null) {
+            playersCanVote = gson.fromJson(playersCanVoteJSON, type);
+        }if(playersNoWolvesJSON != null) {
+            playersNoWolves = gson.fromJson(playersNoWolvesJSON, type);
+        }if(highestJSON != null) {
+            highest = gson.fromJson(highestJSON, type);
+        }
             // Players
-            lastLynched = new Gson().fromJson(lastLynchedJSON, type1);
-            playerChose = new Gson().fromJson(playerChoseJSON, type1);
-            playerProbed = new Gson().fromJson(playerProbedJSON, type1);
-            clairvoyant = new Gson().fromJson(clairvoyantJSON, type1);
-            guard = new Gson().fromJson(guardJSON, type1);
-            medium = new Gson().fromJson(mediumJSON, type1);
+        if(lastLynchedJSON != null) {
+            lastLynched = gson.fromJson(lastLynchedJSON, type1);
+        }if(playerChoseJSON != null) {
+            playerChose = gson.fromJson(playerChoseJSON, type1);
+        }if(playerProbedJSON != null) {
+            playerProbed = gson.fromJson(playerProbedJSON, type1);
+        }if(clairvoyantJSON != null) {
+            clairvoyant = gson.fromJson(clairvoyantJSON, type1);
+        }if(guardJSON != null) {
+            guard = gson.fromJson(guardJSON, type1);
+        }if(mediumJSON != null) {
+            medium = gson.fromJson(mediumJSON, type1);
+        }
 
             // Counters
             nightCounter = prefs.getInt(NIGHT_COUNTER, 0);
@@ -743,29 +755,30 @@ public class Game extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
 
         editor.putString(VILLAGE, village);
 
         // Lists
-        String playersJSON = new Gson().toJson(players);
-        String recentlyKilledJSON = new Gson().toJson(recentlyKilled);
-        String playersCanVoteJSON = new Gson().toJson(playersCanVote);
-        String playersNoWolvesJSON = new Gson().toJson(playersNoWolves);
-        String highestJSON = new Gson().toJson(highest);
+        String playersJSON = gson.toJson(players);
+        String recentlyKilledJSON = gson.toJson(recentlyKilled);
+        String playersCanVoteJSON = gson.toJson(playersCanVote);
+        String playersNoWolvesJSON = gson.toJson(playersNoWolves);
+        String highestJSON = gson.toJson(highest);
 
-        editor.putString(PLAYERS, playersJSON).apply();
-        editor.putString(RECENTLY_KILLED, recentlyKilledJSON).apply();
-        editor.putString(PLAYERS_CAN_VOTE, playersCanVoteJSON).apply();
-        editor.putString(PLAYERS_NO_WOLVES, playersNoWolvesJSON).apply();
-        editor.putString(HIGHEST, highestJSON).apply();
+        editor.putString(PLAYERS, playersJSON);
+        editor.putString(RECENTLY_KILLED, recentlyKilledJSON);
+        editor.putString(PLAYERS_CAN_VOTE, playersCanVoteJSON);
+        editor.putString(PLAYERS_NO_WOLVES, playersNoWolvesJSON);
+        editor.putString(HIGHEST, highestJSON);
 
         // Players
-        editor.putString(LAST_LYNCHED, new Gson().toJson(lastLynched)).apply();
-        editor.putString(PLAYER_CHOSE, new Gson().toJson(playerChose)).apply();
-        editor.putString(PLAYER_PROBED, new Gson().toJson(playerProbed)).apply();
-        editor.putString(CLAIRVOYANT, new Gson().toJson(clairvoyant)).apply();
-        editor.putString(GUARD, new Gson().toJson(guard)).apply();
-        editor.putString(MEDIUM, new Gson().toJson(medium)).apply();
+        editor.putString(LAST_LYNCHED, gson.toJson(lastLynched));
+        editor.putString(PLAYER_CHOSE, gson.toJson(playerChose));
+        editor.putString(PLAYER_PROBED, gson.toJson(playerProbed));
+        editor.putString(CLAIRVOYANT, gson.toJson(clairvoyant));
+        editor.putString(GUARD, gson.toJson(guard));
+        editor.putString(MEDIUM, gson.toJson(medium));
 
         // Counters
         editor.putInt(NIGHT_COUNTER, nightCounter);
@@ -777,6 +790,6 @@ public class Game extends AppCompatActivity {
         editor.putBoolean(NIGHT, night);
 
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.apply();
     }
 }

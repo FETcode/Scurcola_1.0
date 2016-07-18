@@ -62,9 +62,18 @@ public class NameSelection extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        village = prefs.getString(VILLAGE, "");
-        playersAmount = prefs.getInt(PLAYERS_AMOUNT, 0);
-        playersAmount2 = prefs.getInt(PLAYERS_AMOUNT2, 0);
+        village = prefs.getString(VILLAGE, "Scurcola");
+        playersAmount = prefs.getInt(PLAYERS_AMOUNT, playersAmount);
+        playersAmount2 = prefs.getInt(PLAYERS_AMOUNT2, playersAmount);
+        if(playersAmount > playersAmount2) {
+            whoIsMaster.setText(R.string.whoIsPlaying); // and edit our question properly.
+            playersLeft.setText(String.valueOf(playersAmount2));
+        }if (playersAmount2 == 0){
+            next.setVisibility(View.GONE); // we want to hide the Next button,
+            finish.setVisibility(View.VISIBLE); // see the Finish one,
+            namesDisplay.setVisibility(View.INVISIBLE); // and disable the EditText.
+            playersLeft.setVisibility(View.INVISIBLE);
+        }
     }
 
     // ### NEXT, BACK and FINISH buttons ###/
