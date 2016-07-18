@@ -34,10 +34,14 @@ public class ListPlayersLynch extends AppCompatActivity {
         voters = intent.getParcelableArrayListExtra("PLAYERS");
         highest = intent.getParcelableArrayListExtra("HIGHEST");
 
+
         for (Player p : highest){
             voters.remove(p);
         }
 
+        for(Player p : voters){
+            p.setCount(0);
+        }
 
         myList = (RecyclerView) findViewById(R.id.playersLynch);
         myList.setLayoutManager(new LinearLayoutManager(this));
@@ -74,6 +78,7 @@ public class ListPlayersLynch extends AppCompatActivity {
                     for (Player voters2 : highest){
                         voters2.setCount(0);
                     }
+                    System.out.println(playerLynched.get(0).getName() + " TAKE A LOOK HERE");
                     // Finally get back to the previous Activity
                     Intent intent = new Intent();
                     intent.putParcelableArrayListExtra("PLAYERLYNCHED", (ArrayList<? extends Parcelable>) playerLynched);

@@ -157,10 +157,10 @@ public class Game extends AppCompatActivity {
         }
 
         // Counters
-        nightCounter = prefs.getInt(NIGHT_COUNTER, 0);
-        dayCounter = prefs.getInt(DAY_COUNTER, 0);
-        nightInsideCounter = prefs.getInt(NIGHT_INSIDE_COUNTER, 0);
-        dayInsideCounter = prefs.getInt(DAY_INSIDE_COUNTER, 0);
+        nightCounter = prefs.getInt(NIGHT_COUNTER, 1);
+        dayCounter = prefs.getInt(DAY_COUNTER, 1);
+        nightInsideCounter = prefs.getInt(NIGHT_INSIDE_COUNTER, 1);
+        dayInsideCounter = prefs.getInt(DAY_INSIDE_COUNTER, 1);
         wolvesLeft = prefs.getInt(WOLVES_LEFT, 0);
         villagersLeft = prefs.getInt(VILLAGERS_LEFT, 0);
         night = prefs.getBoolean(NIGHT, true);

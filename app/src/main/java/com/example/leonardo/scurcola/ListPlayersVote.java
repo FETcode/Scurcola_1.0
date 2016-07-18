@@ -32,12 +32,24 @@ public class ListPlayersVote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_players_vote);
 
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        String playersJSON = prefs.getString(PLAYERS, null);
+        Type type = new TypeToken<List<Player>>(){}.getType();
+        Gson gson = new Gson();
+        if(playersJSON != null) {
+            players = gson.fromJson(playersJSON, type);
+        }
+
         Intent intent = this.getIntent();
-        players = intent.getParcelableArrayListExtra("PLAYERS");
+        if(intent != null) {
+            players = intent.getParcelableArrayListExtra("PLAYERS");
+        }
+
         myList = (RecyclerView) findViewById(R.id.playersVote);
         myList.setLayoutManager(new LinearLayoutManager(this));
         CoursesAdapter adapter = new CoursesAdapter(players);
         myList.setAdapter(adapter);
+
 
         // RecyclerView with a click listener
 
@@ -100,18 +112,6 @@ public class ListPlayersVote extends AppCompatActivity {
         myList.setAdapter(clickAdapter);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        String playersJSON = prefs.getString(PLAYERS, null);
-        Type type = new TypeToken<List<Player>>(){}.getType();
-        Gson gson = new Gson();
-
-        if(playersJSON != null) {
-            players = gson.fromJson(playersJSON, type);
-        }
-    }
 
     @Override
     protected void onStop() {
