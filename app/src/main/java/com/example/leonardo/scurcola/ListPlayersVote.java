@@ -34,11 +34,6 @@ public class ListPlayersVote extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         players = intent.getParcelableArrayListExtra("PLAYERS");
-
-        initializeRecyclerView();
-    }
-
-    public void initializeRecyclerView(){
         myList = (RecyclerView) findViewById(R.id.playersVote);
         myList.setLayoutManager(new LinearLayoutManager(this));
         CoursesAdapter adapter = new CoursesAdapter(players);
@@ -116,8 +111,6 @@ public class ListPlayersVote extends AppCompatActivity {
         if(playersJSON != null) {
             players = gson.fromJson(playersJSON, type);
         }
-
-        initializeRecyclerView();
     }
 
     @Override

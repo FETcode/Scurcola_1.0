@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Scurcola</string>
-    <string name="play"><b>PLAY</b></string>
-    <string name="next">Next</string>
-    <string name="back">Back</string>
-    <string name="finish">Finish</string>
-    <string name="remove">Remove</string>
-    <string name="add">Add</string>
-    <string name="welcome">Welcome to the new Android game for Lupus in Tabula</string>
+    <string name="play"><b>Gioca</b></string>
+    <string name="next">Avanti</string>
+    <string name="back">Indietro</string>
+    <string name="finish">Fine</string>
+    <string name="remove">Rimuovi</string>
+    <string name="add">Aggiungi</string>
+    <string name="welcome">Benvenuto al nuovo gioco Lupus!</string>
     <string name="gameOver">GAME OVER</string>
     <string name="villagersWin">Il villaggio di %s è salvo!</string>
     <string name="wolvesWin">Lo hai sentito anche te?!</string>
@@ -31,31 +31,31 @@
 
 
     <!-- Characters -->
-    <string name="demoniac">Demoniac</string>
-    <string name="masons">Masons</string>
-    <string name="guard">Guard</string>
+    <string name="demoniac">Indemoniato</string>
+    <string name="masons">Massoni</string>
+    <string name="guard">Guardia</string>
     <string name="medium">Medium</string>
-    <string name="villager">Villager</string>
-    <string name="werehamster">Werehamster</string>
-    <string name="clairvoyant">Clairvoyant</string>
-    <string name="wolf">Wolf</string>
+    <string name="villager">Paesano</string>
+    <string name="werehamster">Criceto Mannaro</string>
+    <string name="clairvoyant">Veggente</string>
+    <string name="wolf">Lupo</string>
 
 
     <!-- PlayerSelection -->
-    <string name="howManyPlayers">How many of you are playing?</string>
-    <string name="whoMaster">Who\'s the Master?</string>
-    <string name="whoPlays">Who\'s playing?</string>
+    <string name="howManyPlayers">In quanti giocate?</string>
+    <string name="whoMaster">Chi è il Master?</string>
+    <string name="whoPlays">Chi gioca?</string>
     <string name="master">Leonardo</string>
-    <string name="whoIsPlaying">Who\'s playing?</string>
+    <string name="whoIsPlaying">Chi gioca?</string>
 
 
     <!-- CharacterSelection -->
-    <string name="whatCharacter">What characters you want to play with?</string>
+    <string name="whatCharacter">Con quali personaggi volete giocare?</string>
 
 
     <!-- RandomAssignment -->
-    <string name="card">Card</string>
-    <string name="name">Name</string>
+    <string name="card">Carta</string>
+    <string name="name">Nome</string>
 
 
     <!-- Greetings -->
@@ -82,7 +82,7 @@
     <string name="night" formatted="false">E\' notte a %s, tutti chiudono gli occhi.</string>
 
 
-    <!-- Day Strings -->
+    <!-- Day Strings
     <string-array name="goodMorning" formated="false">
         <item>Good Morning folks!</item>
         <item>Sun\'s out, guns out.</item>
@@ -93,7 +93,17 @@
         <item>Stars went to bed, and %s wakes up!</item>
         <item>Be beep. Be beep. %s wake up!</item>
     </string-array>
-
+-->
+    <string-array name="goodMorning" formated="false">
+        <item>Buon giorno a tutti!</item>
+        <item>Il sole è fuori, voi pure.</item>
+        <item>I vampiri bruciano.. e voi vi svegliate!</item>
+        <item>Non vedo la luna.. ah già, buongiorno!</item>
+        <item>Le tenebre fuggono da %s, è giorno!</item>
+        <item>La luce del sole riscalda il villaggio di %s e sveglia i suoi abitanti.</item>
+        <item>Le stelle sono andate a dormire, e voi vi svegliate!</item>
+        <item>Be beep. Be beep. %s sveglia!</item>
+    </string-array>
     <string name="savaged">Questa notte i lupi hanno sbranato %s !</string>
     <string name="savagedMaster">Questa notte i lupi hanno sbranato il nostro caro Master!</string>
     <string name="talk">Tutti gli abitanti si radunano per discutere dell\'accaduto.</string>

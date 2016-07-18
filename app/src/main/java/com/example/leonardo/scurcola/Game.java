@@ -60,7 +60,7 @@ public class Game extends AppCompatActivity {
     private String activity;
 
     ArrayAdapter<String> adapter;
-    List<String> messages;
+    ArrayList<String> messages;
     Button next;
     ListView screen; // Where all the messages will be shown
 
@@ -133,7 +133,7 @@ public class Game extends AppCompatActivity {
 
         Type type = new TypeToken <List<Player>>(){}.getType();
         Type type1 = new TypeToken <Player>(){}.getType();
-        Type listString = new TypeToken <List<String>>(){}.getType();
+        Type arrayListString = new TypeToken <ArrayList<String>>(){}.getType();
 
         if(playersJSON != null) {
             players = gson.fromJson(playersJSON, type);
@@ -146,7 +146,7 @@ public class Game extends AppCompatActivity {
         }if(highestJSON != null) {
             highest = gson.fromJson(highestJSON, type);
         }if(messagesJSON != null) {
-            messages = gson.fromJson(messagesJSON, listString);
+            messages = gson.fromJson(messagesJSON, arrayListString);
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
             screen.setAdapter(adapter);
         }
@@ -560,9 +560,12 @@ public class Game extends AppCompatActivity {
                     highest.addAll(highestList1);
                     highestList1.clear();
 
+                System.out.println(highest.size());
                 // Write the names in chat
                 write("Il villaggio ha i propri sospettati:");
                 for (Player player : highest){
+                    System.out.println(player.getName() + " TAKE A LOOK HERE");
+
                     write(player.getName());
                 }
 
