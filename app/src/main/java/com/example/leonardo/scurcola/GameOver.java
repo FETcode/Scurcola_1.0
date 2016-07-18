@@ -10,21 +10,20 @@ import android.widget.TextView;
 
 public class GameOver extends AppCompatActivity {
 
-    private boolean goodEnd;
-    private TextView save;
-    private String village;
     Button finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        goodEnd = getIntent().getExtras().getBoolean("GOODEND");
+        boolean goodEnd = getIntent().getExtras().getBoolean("GOODEND");
         finish = (Button) findViewById(R.id.finish);
         if(goodEnd) {
             setContentView(R.layout.activity_game_over_villagers);
-            save = (TextView) findViewById(R.id.textView4);
-            village = getIntent().getExtras().getString("VILLAGE");
-            save.setText(String.format(getResources().getString(R.string.villagersWin), village));
+            TextView save = (TextView) findViewById(R.id.textView4);
+            String village = getIntent().getExtras().getString("VILLAGE");
+            if (save != null) {
+                save.setText(String.format(getResources().getString(R.string.villagersWin), village));
+            }
         }else{
             setContentView(R.layout.activity_game_over_wolves);
         }
@@ -35,7 +34,7 @@ public class GameOver extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         startActivity(intent);
     }
 
@@ -47,6 +46,6 @@ public class GameOver extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.apply();
     }
 }
