@@ -14,17 +14,16 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListPlayersVote extends AppCompatActivity {
 
     static final String PLAYERS = "PLAYERS";
 
     RecyclerView myList;
-    private ArrayList<Player> players; // Players
+    ArrayList<Player> players; // Players
     int votes = 0;
-    public ArrayList<Player> highestList = new ArrayList<>();
-    public ArrayList<Player> highestList1 = new ArrayList<>();
+    ArrayList<Player> highestList = new ArrayList<>();
+    ArrayList<Player> highestList1 = new ArrayList<>();
 
 
     @Override
@@ -34,8 +33,9 @@ public class ListPlayersVote extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         String playersJSON = prefs.getString(PLAYERS, null);
-        Type type = new TypeToken<List<Player>>(){}.getType();
+        Type type = new TypeToken<ArrayList<Player>>(){}.getType();
         Gson gson = new Gson();
+
         if(playersJSON != null) {
             players = gson.fromJson(playersJSON, type);
         }
@@ -84,20 +84,33 @@ public class ListPlayersVote extends AppCompatActivity {
                         // which of course will have the highest count as there's no either player to compare it yet)
                         if(playerCount > highest || highest == -1){ // If they're the highest so far, add it to the 1st list
                             if(playerCount != 0) {
-                                highestList1.addAll(highestList);
+
+                                if (highest > highest1 || highest1 == -1){ // If they're the 2nd highest so far, add it to the 2nd list
+                                    if(highest != 0) {
+                                        highestList1.clear();
+                                        highestList1.addAll(highestList);
+                                    }
+                                }if (highest == highest1){ // If they're equal to the current 2nd highest one, add it to the 2nd list as well
+                                    highestList1.addAll(highestList);
+                                }
+
                                 highestList.clear();
                                 highestList.add(player1);
+                                System.out.println("PlayerCount: " + playerCount + " > " + highest + " Highest");
                             }
                             // the same for highest1
-                        } else if (playerCount > highest1 || highest1 == -1){ // If they're the 2nd highest so far, add it to the 2nd list
+                        }else if(playerCount == highest){ // If they're equal to the current highest one, add it to the 1st list as well
+                            highestList.add(player1);
+                            System.out.println("PlayerCount: " + playerCount + " == " + highest + " Highest");
+                        }else if (playerCount > highest1 || highest1 == -1){ // If they're the 2nd highest so far, add it to the 2nd list
                             if(playerCount != 0) {
                                 highestList1.clear();
                                 highestList1.add(player1);
+                                System.out.println("PlayerCount: " + playerCount + " > " + highest1 + " Highest1");
                             }
-                        }else if(playerCount == highest){ // If they're equal to the current highest one, add it to the 1st list as well
-                            highestList1.add(player1);
                         } else if (playerCount == highest1){ // If they're equal to the current 2nd highest one, add it to the 2nd list as well
                             highestList1.add(player1);
+                            System.out.println("PlayerCount: " + playerCount + " == " + highest1+ " Highest1");
                         }
                     }
 

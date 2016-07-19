@@ -4,21 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListPlayersLynch extends AppCompatActivity {
 
     ArrayList<Player> highest;
     RecyclerView myList;
-    List<Player> voters;
-    List<Player> playerLynched;
+    ArrayList<Player> voters;
+    ArrayList<Player> playerLynched;
     int votes = 0;
 
     @Override
@@ -43,7 +41,7 @@ public class ListPlayersLynch extends AppCompatActivity {
             voters.remove(p);
         }
 
-        for(Player p : voters){
+        for(Player p : highest){
             p.setCount(0);
         }
 
@@ -59,7 +57,7 @@ public class ListPlayersLynch extends AppCompatActivity {
         clickAdapter.setOnEntryClickListener(new CoursesAdapter.OnEntryClickListener() {
             @Override
             public void onEntryClick(View view, int position) {
-                Player voter = voters.get(position);
+                Player voter = highest.get(position);
                 voter.incrementCount();
                 votes++;
                 if(votes == voters.size()) {
@@ -94,7 +92,7 @@ public class ListPlayersLynch extends AppCompatActivity {
                     System.out.println(playerLynched.get(0).getName() + " TAKE A LOOK HERE");
                     // Finally get back to the previous Activity
                     Intent intent = new Intent();
-                    intent.putParcelableArrayListExtra("PLAYERLYNCHED", (ArrayList<? extends Parcelable>) playerLynched);
+                    intent.putParcelableArrayListExtra("PLAYERLYNCHED", playerLynched);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
