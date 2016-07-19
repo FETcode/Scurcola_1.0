@@ -35,6 +35,10 @@ public class ListPlayersLynch extends AppCompatActivity {
         highest = intent.getParcelableArrayListExtra("HIGHEST");
 
 
+        for(Player p : voters){
+            System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+        }
+
         for (Player p : highest){
             voters.remove(p);
         }
@@ -73,6 +77,15 @@ public class ListPlayersLynch extends AppCompatActivity {
                         }else if(playerCount == highest){ // If they're equal to the current highest one, add it to the 1st list as well
                             // Let the Master decide or a coin
                         }
+                    }
+                    System.out.println("HIGHEST");
+                    for(Player p : highest){
+                        System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+                    }
+
+                    System.out.println("PLAYERLYNCHED");
+                    for(Player p : playerLynched){
+                        System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
                     }
 
                     for (Player voters2 : highest){

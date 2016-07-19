@@ -45,6 +45,10 @@ public class ListPlayersVote extends AppCompatActivity {
             players = intent.getParcelableArrayListExtra("PLAYERS");
         }
 
+        for(Player p : players){
+            System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+        }
+
         myList = (RecyclerView) findViewById(R.id.playersVote);
         myList.setLayoutManager(new LinearLayoutManager(this));
         CoursesAdapter adapter = new CoursesAdapter(players);
@@ -96,10 +100,32 @@ public class ListPlayersVote extends AppCompatActivity {
                             highestList1.add(player1);
                         }
                     }
+
+                    for(Player p : players){
+                        System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+                    }
+
+                    for(Player p : highestList){
+                        System.out.println("--- HIGHESTLIST ---");
+                        System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+                    }
+                    for(Player p : highestList1){
+                        System.out.println("--- HIGHESTLIST1 ---");
+                        System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+                    }
+
                     for (Player player2 : players){
                         player2.setCount(0);
                     }
 
+                    for(Player p : highestList){
+                        System.out.println("--- HIGHESTLIST ---");
+                        System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+                    }
+                    for(Player p : highestList1){
+                        System.out.println("--- HIGHESTLIST1 ---");
+                        System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
+                    }
                     // Finally get back to the previous Activity
                     Intent intent = new Intent();
                     intent.putParcelableArrayListExtra("HIGHEST", highestList);
