@@ -9,10 +9,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListPlayersWolves extends Activity {
+
+    static final String PLAYERS = "PLAYERS";
 
     ArrayList<Player> playersNoWolves;
     RecyclerView myList;
@@ -23,11 +29,23 @@ public class ListPlayersWolves extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_players_wolves);
-
         playerSavaged = new ArrayList<>();
 
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        String playersJSON = prefs.getString(PLAYERS, null);
+        Type type = new TypeToken<ArrayList<Player>>(){}.getType();
+        Gson gson = new Gson();
+
+        if(playersJSON != null) {
+            playersNoWolves = gson.fromJson(playersJSON, type);
+        }
+
+
+
         Intent intent = this.getIntent();
-        playersNoWolves = intent.getParcelableArrayListExtra("PLAYERS");
+        if(intent != null) {
+            playersNoWolves = intent.getParcelableArrayListExtra("PLAYERS");
+        }
 
         myList = (RecyclerView) findViewById(R.id.playersNoWolves);
         myList.setLayoutManager(new LinearLayoutManager(this));
@@ -56,13 +74,17 @@ public class ListPlayersWolves extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
+    protected void onStop() {
+        super.onStop();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+
+        String playersJSON = gson.toJson(playersNoWolves);
+        editor.putString(PLAYERS, playersJSON);
+
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.apply();
     }
 
     }

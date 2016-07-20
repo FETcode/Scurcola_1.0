@@ -8,12 +8,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class ListPlayersClairvoyant extends Activity {
+
+    static final String PLAYERS = "PLAYERS";
 
     RecyclerView myList;
     List<Player> playerProbed;
@@ -22,15 +28,22 @@ public class ListPlayersClairvoyant extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_players_clairvoyant);
-
         playerProbed = new ArrayList<>();
+
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        String playersJSON = prefs.getString(PLAYERS, null);
+        Type type = new TypeToken<ArrayList<Player>>(){}.getType();
+        Gson gson = new Gson();
+
+        if(playersJSON != null) {
+            playerProbed = gson.fromJson(playersJSON, type);
+        }
 
         // Get the players and remove the Clairvoyant
         Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        final ArrayList<Player> playersNoClairvoyant = (ArrayList<Player>) bundle.getSerializable("PLAYERS");
+        final ArrayList<Player> playersNoClairvoyant = intent.getParcelableArrayListExtra("PLAYERS");
 
-        Iterator<Player> i = playersNoClairvoyant.iterator();
+        final Iterator<Player> i = playersNoClairvoyant.iterator();
         while (i.hasNext()) {
             Player player = i.next(); // must be called before you can call i.remove()
             if(player.getCardName().equals("Clairvoyant")) {
@@ -66,13 +79,17 @@ public class ListPlayersClairvoyant extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
+    protected void onStop() {
+        super.onStop();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+
+        String playersJSON = gson.toJson(playerProbed);
+        editor.putString(PLAYERS, playersJSON);
+
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.apply();
     }
 }
 

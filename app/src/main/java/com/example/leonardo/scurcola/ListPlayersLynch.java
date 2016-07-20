@@ -46,9 +46,10 @@ public class ListPlayersLynch extends AppCompatActivity {
 
         // Get the players and remove the Clairvoyant
         Intent intent = this.getIntent();
-        voters = intent.getParcelableArrayListExtra("PLAYERS");
-        highest = intent.getParcelableArrayListExtra("HIGHEST");
-
+        if(intent != null) {
+            voters = intent.getParcelableArrayListExtra("PLAYERS");
+            highest = intent.getParcelableArrayListExtra("HIGHEST");
+        }
 
         for(Player p : voters){
             System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
