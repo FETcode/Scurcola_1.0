@@ -151,8 +151,8 @@ public class RandomAssignment extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         Gson gson = new Gson();
         String playersJSON = gson.toJson(players);
         String namesJSON = gson.toJson(names);
@@ -165,6 +165,7 @@ public class RandomAssignment extends AppCompatActivity {
         editor.putString(PLAYERS, playersJSON);
         editor.putString(NAMES, namesJSON);
         editor.putString(CARDS, cardsJSON);
+        editor.putString(VILLAGE, village);
         editor.apply();
         System.out.println("Count value BEFORE was: " + count + " **************************");
     }

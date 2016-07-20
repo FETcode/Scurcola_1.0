@@ -88,7 +88,7 @@ public class CharacterSelection extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        prefs.getString(VILLAGE, "");
+        prefs.getString(VILLAGE, "Scurcola");
 
         status = prefs.getBoolean("STATUS", false);
         // Buttons' status
@@ -372,7 +372,8 @@ public class CharacterSelection extends AppCompatActivity {
         editor.putBoolean("NINE", nine);
 
         editor.putBoolean("STATUS", status);
-        editor.commit();
+        editor.putString(VILLAGE, village);
+        editor.apply();
     }
 
 }
