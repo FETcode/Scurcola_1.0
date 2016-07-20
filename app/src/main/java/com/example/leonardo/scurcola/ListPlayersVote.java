@@ -45,6 +45,9 @@ public class ListPlayersVote extends AppCompatActivity {
             players = intent.getParcelableArrayListExtra("PLAYERS");
         }
 
+        votes = prefs.getInt("VOTES", 0);
+
+        // DEBUG
         for(Player p : players){
             System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
         }
@@ -96,24 +99,29 @@ public class ListPlayersVote extends AppCompatActivity {
 
                                 highestList.clear();
                                 highestList.add(player1);
+                                // DEBUG
                                 System.out.println("PlayerCount: " + playerCount + " > " + highest + " Highest");
                             }
                             // the same for highest1
                         }else if(playerCount == highest){ // If they're equal to the current highest one, add it to the 1st list as well
                             highestList.add(player1);
+                            // DEBUG
                             System.out.println("PlayerCount: " + playerCount + " == " + highest + " Highest");
                         }else if (playerCount > highest1 || highest1 == -1){ // If they're the 2nd highest so far, add it to the 2nd list
                             if(playerCount != 0) {
                                 highestList1.clear();
                                 highestList1.add(player1);
+                                // DEBUG
                                 System.out.println("PlayerCount: " + playerCount + " > " + highest1 + " Highest1");
                             }
                         } else if (playerCount == highest1){ // If they're equal to the current 2nd highest one, add it to the 2nd list as well
                             highestList1.add(player1);
+                            // DEBUG
                             System.out.println("PlayerCount: " + playerCount + " == " + highest1+ " Highest1");
                         }
                     }
 
+                    // DEBUG
                     for(Player p : players){
                         System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
                     }
@@ -139,6 +147,8 @@ public class ListPlayersVote extends AppCompatActivity {
                         System.out.println("--- HIGHESTLIST1 ---");
                         System.out.println("NAME: " + p.getName() + " - CARD: " + p.getCardName() + " - COUNT: " + p.getCount());
                     }
+
+
                     // Finally get back to the previous Activity
                     Intent intent = new Intent();
                     intent.putParcelableArrayListExtra("HIGHEST", highestList);

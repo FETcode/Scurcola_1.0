@@ -9,9 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ListPlayersLynch extends AppCompatActivity {
+
+    static final String PLAYERS = "PLAYERS";
 
     ArrayList<Player> highest;
     RecyclerView myList;
@@ -26,6 +32,17 @@ public class ListPlayersLynch extends AppCompatActivity {
 
         playerLynched = new ArrayList<>();
         voters = new ArrayList<>();
+
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        String playersJSON = prefs.getString(PLAYERS, null);
+        Type type = new TypeToken<ArrayList<Player>>(){}.getType();
+        Gson gson = new Gson();
+
+        if(playersJSON != null) {
+            voters = gson.fromJson(playersJSON, type);
+        }
+
+        votes = prefs.getInt("VOTES", 0);
 
         // Get the players and remove the Clairvoyant
         Intent intent = this.getIntent();
@@ -101,13 +118,19 @@ public class ListPlayersLynch extends AppCompatActivity {
         myList.setAdapter(clickAdapter);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
 
+    @Override
+    protected void onStop() {
+        super.onStop();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+
+        String playersJSON = gson.toJson(voters);
+        editor.putString(PLAYERS, playersJSON);
+
+        editor.putInt("VOTES", votes);
         editor.putString("lastActivity", getClass().getName());
-        editor.commit();
+        editor.apply();
     }
 }
