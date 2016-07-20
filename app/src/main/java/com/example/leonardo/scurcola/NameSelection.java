@@ -62,7 +62,7 @@ public class NameSelection extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        village = prefs.getString(VILLAGE, "Scurcola");
+        village = prefs.getString(VILLAGE, village);
         playersAmount = prefs.getInt(PLAYERS_AMOUNT, playersAmount);
         playersAmount2 = prefs.getInt(PLAYERS_AMOUNT2, playersAmount);
         if(playersAmount > playersAmount2) {

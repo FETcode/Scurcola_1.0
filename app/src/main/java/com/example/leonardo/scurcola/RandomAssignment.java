@@ -59,7 +59,7 @@ public class RandomAssignment extends AppCompatActivity {
 
         // Shared Preferences
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        village = prefs.getString(VILLAGE, "Scurcola");
+        village = prefs.getString(VILLAGE, village);
         count = prefs.getInt(COUNT, 0);
 
         // JSON

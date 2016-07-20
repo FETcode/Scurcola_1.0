@@ -56,7 +56,7 @@ public class PlayerSelection extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        village = prefs.getString(VILLAGE, "");
+        village = prefs.getString(VILLAGE, village);
         int progress = prefs.getInt(PROGRESS, 0);
         seekBar.setProgress(progress);
         }

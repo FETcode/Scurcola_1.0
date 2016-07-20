@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ListPlayersWolves extends Activity {
 
-    static final String PLAYERS = "PLAYERS";
+    static final String NO_WOLVES = "NO_WOLVES";
 
     ArrayList<Player> playersNoWolves;
     RecyclerView myList;
@@ -32,12 +32,12 @@ public class ListPlayersWolves extends Activity {
         playerSavaged = new ArrayList<>();
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        String playersJSON = prefs.getString(PLAYERS, null);
+        String noWolvesJSON = prefs.getString(NO_WOLVES, null);
         Type type = new TypeToken<ArrayList<Player>>(){}.getType();
         Gson gson = new Gson();
 
-        if(playersJSON != null) {
-            playersNoWolves = gson.fromJson(playersJSON, type);
+        if(noWolvesJSON != null) {
+            playersNoWolves = gson.fromJson(noWolvesJSON, type);
         }
 
 
@@ -80,8 +80,8 @@ public class ListPlayersWolves extends Activity {
         SharedPreferences.Editor editor = prefs.edit();
         Gson gson = new Gson();
 
-        String playersJSON = gson.toJson(playersNoWolves);
-        editor.putString(PLAYERS, playersJSON);
+        String noWolvesJSON = gson.toJson(playersNoWolves);
+        editor.putString(NO_WOLVES, noWolvesJSON);
 
         editor.putString("lastActivity", getClass().getName());
         editor.apply();

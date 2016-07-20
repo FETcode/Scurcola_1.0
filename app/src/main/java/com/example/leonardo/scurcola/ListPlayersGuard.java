@@ -18,7 +18,7 @@ import java.util.Iterator;
 
 public class ListPlayersGuard extends AppCompatActivity {
 
-    static final String PLAYERS = "PLAYERS";
+    static final String GUARD = "GUARD";
 
     ArrayList<Player> playersNoGuard;
     RecyclerView myList;
@@ -29,12 +29,12 @@ public class ListPlayersGuard extends AppCompatActivity {
         setContentView(R.layout.activity_list_players_guard);
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        String playersJSON = prefs.getString(PLAYERS, null);
+        String guardJSON = prefs.getString(GUARD, null);
         Type type = new TypeToken<ArrayList<Player>>(){}.getType();
         Gson gson = new Gson();
 
-        if(playersJSON != null) {
-            playersNoGuard = gson.fromJson(playersJSON, type);
+        if(guardJSON != null) {
+            playersNoGuard = gson.fromJson(guardJSON, type);
         }
 
 
@@ -79,8 +79,8 @@ public class ListPlayersGuard extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         Gson gson = new Gson();
 
-        String playersJSON = gson.toJson(playersNoGuard);
-        editor.putString(PLAYERS, playersJSON);
+        String guardJSON = gson.toJson(playersNoGuard);
+        editor.putString(GUARD, guardJSON);
 
         editor.putString("lastActivity", getClass().getName());
         editor.apply();

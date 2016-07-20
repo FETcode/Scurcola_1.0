@@ -88,7 +88,7 @@ public class CharacterSelection extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        prefs.getString(VILLAGE, "Scurcola");
+        prefs.getString(VILLAGE, village);
 
         status = prefs.getBoolean("STATUS", false);
         // Buttons' status

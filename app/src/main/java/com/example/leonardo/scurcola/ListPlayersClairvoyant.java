@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ListPlayersClairvoyant extends Activity {
 
-    static final String PLAYERS = "PLAYERS";
+    static final String PROBED = "PROBED";
 
     RecyclerView myList;
     List<Player> playerProbed;
@@ -31,12 +31,12 @@ public class ListPlayersClairvoyant extends Activity {
         playerProbed = new ArrayList<>();
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        String playersJSON = prefs.getString(PLAYERS, null);
+        String probedJSON = prefs.getString(PROBED, null);
         Type type = new TypeToken<ArrayList<Player>>(){}.getType();
         Gson gson = new Gson();
 
-        if(playersJSON != null) {
-            playerProbed = gson.fromJson(playersJSON, type);
+        if(probedJSON != null) {
+            playerProbed = gson.fromJson(probedJSON, type);
         }
 
         // Get the players and remove the Clairvoyant
@@ -85,8 +85,8 @@ public class ListPlayersClairvoyant extends Activity {
         SharedPreferences.Editor editor = prefs.edit();
         Gson gson = new Gson();
 
-        String playersJSON = gson.toJson(playerProbed);
-        editor.putString(PLAYERS, playersJSON);
+        String probedJSON = gson.toJson(playerProbed);
+        editor.putString(PROBED, probedJSON);
 
         editor.putString("lastActivity", getClass().getName());
         editor.apply();

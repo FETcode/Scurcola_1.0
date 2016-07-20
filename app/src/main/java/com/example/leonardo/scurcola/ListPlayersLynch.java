@@ -23,7 +23,7 @@ public class ListPlayersLynch extends AppCompatActivity {
     RecyclerView myList;
     ArrayList<Player> voters;
     ArrayList<Player> playerLynched;
-    int votes = 0;
+    int votes1 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class ListPlayersLynch extends AppCompatActivity {
             voters = gson.fromJson(playersJSON, type);
         }
 
-        votes = prefs.getInt("VOTES", 0);
+        votes1 = prefs.getInt("VOTES1", 0);
 
         // Get the players and remove the Clairvoyant
         Intent intent = this.getIntent();
@@ -59,10 +59,6 @@ public class ListPlayersLynch extends AppCompatActivity {
             voters.remove(p);
         }
 
-        for(Player p : highest){
-            p.setCount(0);
-        }
-
         myList = (RecyclerView) findViewById(R.id.playersLynch);
         myList.setLayoutManager(new LinearLayoutManager(this));
         CoursesAdapter adapter = new CoursesAdapter(highest);
@@ -77,8 +73,9 @@ public class ListPlayersLynch extends AppCompatActivity {
             public void onEntryClick(View view, int position) {
                 Player voter = highest.get(position);
                 voter.incrementCount();
-                votes++;
-                if(votes == voters.size()) {
+                votes1++;
+                System.out.println("VOTES: " + votes1 + " VOTERS: " + voters.size());
+                if(votes1 == voters.size()) {
                     for (Player voter1 : highest){ // For each player
 
                         int highest = playerLynched.size() == 0 ? -1 : playerLynched.get(0).getCount();// if the list is empty initialize it with -1 to signal the first player handled
@@ -130,7 +127,7 @@ public class ListPlayersLynch extends AppCompatActivity {
         String playersJSON = gson.toJson(voters);
         editor.putString(PLAYERS, playersJSON);
 
-        editor.putInt("VOTES", votes);
+        editor.putInt("VOTES1", votes1);
         editor.putString("lastActivity", getClass().getName());
         editor.apply();
     }

@@ -105,7 +105,7 @@ public class Game extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         Gson gson = new Gson();
         // Restore value of members from saved state
-        village = prefs.getString(VILLAGE, "");
+        village = prefs.getString(VILLAGE, village);
 
         // Lists
         String playersJSON = prefs.getString(PLAYERS, null);
@@ -271,22 +271,6 @@ public class Game extends AppCompatActivity {
                                 villagersLeft++;
                             }
                         }
-                        if(villagersLeft == wolvesLeft){
-                            //Game over. Wolves win
-                            Toast.makeText(Game.this, "Game Over. Wolves win.", Toast.LENGTH_SHORT).show();
-                            Intent intent1 = new Intent(this, GameOver.class);
-                            intent1.putExtra("GOODEND", false);
-                            startActivity(intent1);
-                        }
-                        if(wolvesLeft == 0){
-                            // Game over. Villagers win.
-                            Toast.makeText(Game.this, "Game over. Villagers have killed all the wolves!", Toast.LENGTH_SHORT).show();
-                            Intent intent3 = new Intent(this, GameOver.class);
-                            intent3.putExtra("VILLAGE", village);
-                            intent3.putExtra("GOODEND", true);
-                            startActivity(intent3);
-                        }
-
                         write(R.array.goodMorning, randInt(0, 7), village); // It's morning
                         nightInsideCounter = 1; // Reset the internal counter
                         nightCounter++; // Increment the counter to switch to the next night
@@ -351,6 +335,23 @@ public class Game extends AppCompatActivity {
                                 write(recentlyKilled.get(i).getName() + " è stato ucciso questa notte!");
                             }
                         }
+
+                        if(villagersLeft == wolvesLeft){
+                            //Game over. Wolves win
+                            Toast.makeText(Game.this, "Game Over. Wolves win.", Toast.LENGTH_SHORT).show();
+                            Intent intent1 = new Intent(this, GameOver.class);
+                            intent1.putExtra("GOODEND", false);
+                            startActivity(intent1);
+                        }
+                        if(wolvesLeft == 0){
+                            // Game over. Villagers win.
+                            Toast.makeText(Game.this, "Game over. Villagers have killed all the wolves!", Toast.LENGTH_SHORT).show();
+                            Intent intent3 = new Intent(this, GameOver.class);
+                            intent3.putExtra("VILLAGE", village);
+                            intent3.putExtra("GOODEND", true);
+                            startActivity(intent3);
+                        }
+
                         dayInsideCounter++;
                         break;
                     case 2:
