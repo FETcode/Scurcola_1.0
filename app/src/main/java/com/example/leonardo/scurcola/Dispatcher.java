@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 public class Dispatcher extends Activity {
-boolean debug = true;
+boolean debug = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

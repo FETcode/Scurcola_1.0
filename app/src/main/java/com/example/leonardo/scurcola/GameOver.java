@@ -40,8 +40,8 @@ public class GameOver extends AppCompatActivity {
 
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();

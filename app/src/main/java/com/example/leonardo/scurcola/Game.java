@@ -278,6 +278,14 @@ public class Game extends AppCompatActivity {
                             intent1.putExtra("GOODEND", false);
                             startActivity(intent1);
                         }
+                        if(wolvesLeft == 0){
+                            // Game over. Villagers win.
+                            Toast.makeText(Game.this, "Game over. Villagers have killed all the wolves!", Toast.LENGTH_SHORT).show();
+                            Intent intent3 = new Intent(this, GameOver.class);
+                            intent3.putExtra("VILLAGE", village);
+                            intent3.putExtra("GOODEND", true);
+                            startActivity(intent3);
+                        }
 
                         write(R.array.goodMorning, randInt(0, 7), village); // It's morning
                         nightInsideCounter = 1; // Reset the internal counter
